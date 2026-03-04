@@ -1,74 +1,12 @@
-# DL4DS AI-Powered Cricket Commentary: Event Detection, GPT-4o Narration, and gTTS Synthesis 
+## AI-Powered Cricket Commentary: Event Detection, GPT-4o Narration, & gTTS Synthesis 
 
-
-## Overview
-
+### Overview
 This project develops independent modules toward automating cricket commentary generation. In this work, we focus on generating cricket commentary using OpenAI’s GPT-4o vision model by passing sampled video frames to produce event-specific textual narrations. The generated commentary is further synthesized into speech using the gTTS model, setting the groundwork for a future end-to-end automated cricket broadcasting system.
 
+##
+### Part - 1
 
-## Data 
-
-The input data for this project consisted of cricket highlight videos screen-recorded from publicly available sources such as YouTube. Each video typically captured short gameplay sequences (~10-20 seconds) showcasing individual deliveries or key moments like boundaries or wickets.
-
-These clips were used across multiple components of the project:
-* Event Detection Model: To identify and segment discrete cricketing events using motion-based frame analysis.
-* GPT-4o Commentary Model: The same segmented clips were processed using OpenCV to extract frames, which were then passed to the GPT-4o Vision model for generating cricket-style commentary.
-
-This consistent use of data ensured alignment across the pipeline stages and enabled targeted testing of model performance on specific cricketing events.
-
-
-## Setup
-
-To set up this project locally, ensure you have **Python 3.8+** installed. Then follow the steps below to create a virtual environment and install the required dependencies.
-
-### For macOS and Linux
-```bash
-# Create a virtual environment
-python3 -m venv .venv
-
-# Activate the virtual environment
-source .venv/bin/activate
-
-# Upgrade pip
-pip install --upgrade pip
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### For Windows
-```bash
-# Create a virtual environment
-python -m venv .venv
-
-# Activate the virtual environment
-.venv\Scripts\activate
-
-# Upgrade pip and install dependencies
-pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-
-## Repository Structure
-```text
-.
-├── GPT_Models/                         # GPT-based commentary generation notebooks
-│   ├── 1_gpt_model_single_event.ipynb      # GPT-4o Mini: Commentary for single delivery
-│   ├── 2_gpt_model_multiple_events.ipynb   # GPT-4o: Commentary for multiple deliveries
-│   └── 3_ablation_test_single_event.ipynb  # Ablation study: Frame sampling impact
-├── 1_sceneDetect.py                    # Event detection using frame differencing
-├── 2_tts_gtts_generate.ipynb           # Convert commentary to speech using gTTS
-├── 3_requirements.txt                  # Python dependencies
-├── 542_final_report_main.pdf           # Final written report (LaTeX generated)
-├── DS542_final_presentation.pptx       # Final presentation slides
-├── README.md                           # Project overview and usage instructions
-```
-
-
-## Part - 1
-
-### Event Detection model
+#### Event Detection model
 
 The Python script `sceneDetect.py` processes a cricket highlights video to automatically detect key event transitions, such as wickets, boundaries, or major action scenes. It uses a lightweight and efficient method based on frame-to-frame pixel difference.
 
@@ -88,23 +26,20 @@ The Python script `sceneDetect.py` processes a cricket highlights video to autom
 2.	Run the script:
    `python detect_events.py`
 
+##
+### Part - 2
 
-## Part - 2
-
-### Commentary Generation with GPT-4o
+#### Commentary Generation with GPT-4o
 
 This component of the project focuses on generating cricket commentary using OpenAI's GPT-4o vision model. By providing selected video frames from highlight clips, the model generates human-like, event-specific cricket voiceovers that mimic real-time commentators.
-
 
 #### Notebooks Overview
 
 | Notebook                             | Purpose                                                                                     |
 |--------------------------------------|---------------------------------------------------------------------------------------------|
-| `gpt_model_single_event.ipynb`       | Generates commentary for a short clip featuring a **single cricket event** (e.g., one delivery). Every 30th frame is sampled and passed to `gpt-4o-mini` to generate concise commentary. |
-| `gpt_model_multiple_events.ipynb`    | Tests commentary generation for **multiple deliveries** in one video. It uses the stronger `gpt-4o` model and prompts it to identify and generate **separate commentaries per ball** from the continuous frame stream. |
-| `ablation_test_single_event.ipynb`   | Performs an **ablation study** to test how many frames are actually needed to generate meaningful commentary for a single event. It compares performance when sampling every 25th, 30th, 40th, up to 100th frame. |
-
-
+| `gpt model single event.ipynb`       | Generates commentary for a short clip featuring a **single cricket event** (e.g., one delivery). Every 30th frame is sampled and passed to `gpt-4o-mini` to generate concise commentary. |
+| `gpt model multiple events.ipynb`    | Tests commentary generation for **multiple deliveries** in one video. It uses the stronger `gpt-4o` model and prompts it to identify and generate **separate commentaries per ball** from the continuous frame stream. |
+| `ablation test single event.ipynb`   | Performs an **ablation study** to test how many frames are actually needed to generate meaningful commentary for a single event. It compares performance when sampling every 25th, 30th, 40th, up to 100th frame. |
 
 #### Approach
 
@@ -116,8 +51,6 @@ This component of the project focuses on generating cricket commentary using Ope
    - Number responses for multiple events.
 4. **Model Inference**: Frames are sent to the `gpt-4o` or `gpt-4o-mini` model with a `max_tokens` cap, and the generated commentary is printed.
 
-
-
 #### Key Features and Experiments
 
 - **Event Differentiation**: Multiple-events prompt tells the model to segment input into separate deliveries and respond accordingly.
@@ -125,8 +58,6 @@ This component of the project focuses on generating cricket commentary using Ope
 - **Prompt Variants Tested**:
   - `"These are frames of a video. Create a voiceover commentary..."` (Single event)
   - `"This video contains multiple cricket deliveries. Number the responses..."` (Multiple events)
-
-
 
 #### How to use
 
@@ -137,8 +68,6 @@ This component of the project focuses on generating cricket commentary using Ope
    - Sample frames
    - Generate commentary using GPT-4o
 4. Adjust frame sampling intervals or prompt text as needed.
-
-
 
 #### API Setup 
 
@@ -171,10 +100,10 @@ Once you have your API key, insert it in your notebook like this:
 client = openai.OpenAI(api_key="YOUR_OPENAI_API_KEY")
 ```` 
 
+##
+### Part - 3
 
-## Part - 3
-
-### Text-to-Speech Conversion with gTTS
+#### Text-to-Speech Conversion with gTTS
 
 The Python script `tts_gtts_generate.ipynb` processes the generated cricket commentary text and automatically converts it into spoken audio files. It uses the lightweight and efficient Google Text-to-Speech (gTTS) library to synthesize human-like speech, producing .mp3 audio clips ready to be merged with highlight videos.
 
@@ -202,4 +131,62 @@ The Python script `tts_gtts_generate.ipynb` processes the generated cricket comm
    - Generate corresponding `.mp3` audio files using gTTS.
    - Save the files in the desired output directory.
 3. Optionally, batch-process multiple commentary lines to generate a complete set of event audio files.
+
+##
+### Data 
+The input data for this project consisted of cricket highlight videos screen-recorded from publicly available sources such as YouTube. Each video typically captured short gameplay sequences (~10-20 seconds) showcasing individual deliveries or key moments like boundaries or wickets.
+
+These clips were used across multiple components of the project:
+* **Event Detection Model:** To identify and segment discrete cricketing events using motion-based frame analysis.
+* **GPT-4o Commentary Model:** The same segmented clips were processed using OpenCV to extract frames, which were then passed to the GPT-4o Vision model for generating cricket-style commentary.
+
+This consistent use of data ensured alignment across the pipeline stages and enabled targeted testing of model performance on specific cricketing events.
+
+##
+### Repository Structure
+```text
+.
+├── GPT Models                          # GPT-based commentary generation notebooks
+│   ├── ablation test single event.ipynb  # Ablation study: Frame sampling impact
+│   ├── gpt model multiple events.ipynb   # GPT-4o: Commentary for multiple deliveries
+│   └── gpt model single event.ipynb      # GPT-4o Mini: Commentary for single delivery
+├── Final Presentation.pdf                # Final presentation slides
+├── Final Report.pdf                      # Final written report (LaTeX generated)
+├── README.md                           # Project overview and usage instructions
+├── requirements.txt                    # Python dependencies
+├── scene detect.py                     # Event detection using frame differencing
+├── tts gtts generate.ipynb             # Convert commentary to speech using gTTS
+```
+
+##
+### Setup
+To set up this project locally, ensure you have **Python 3.8+** installed. Then follow the steps below to create a virtual environment and install the required dependencies.
+
+**For macOS and Linux**
+```bash
+# Create a virtual environment
+python3 -m venv .venv
+
+# Activate the virtual environment
+source .venv/bin/activate
+
+# Upgrade pip
+pip install --upgrade pip
+
+# Install dependencies
+pip install -r requirements.txt
+```
+**For Windows**
+```bash
+# Create a virtual environment
+python -m venv .venv
+
+# Activate the virtual environment
+.venv\Scripts\activate
+
+# Upgrade pip and install dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
       
