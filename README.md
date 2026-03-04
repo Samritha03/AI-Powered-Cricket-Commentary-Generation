@@ -8,7 +8,7 @@ This project develops independent modules toward automating cricket commentary g
 
 #### Event Detection model
 
-The Python script `sceneDetect.py` processes a cricket highlights video to automatically detect key event transitions, such as wickets, boundaries, or major action scenes. It uses a lightweight and efficient method based on frame-to-frame pixel difference.
+The Python script `scene detect.py` processes a cricket highlights video to automatically detect key event transitions, such as wickets, boundaries, or major action scenes. It uses a lightweight and efficient method based on frame-to-frame pixel difference.
 
 #### Approach
 
@@ -24,7 +24,7 @@ The Python script `sceneDetect.py` processes a cricket highlights video to autom
 
 1.	Place your cricket video in the same directory as the script and update the video_path.
 2.	Run the script:
-   `python detect_events.py`
+   `scene detect.py`
 
 ##
 ### Part - 2
@@ -105,7 +105,7 @@ client = openai.OpenAI(api_key="YOUR_OPENAI_API_KEY")
 
 #### Text-to-Speech Conversion with gTTS
 
-The Python script `tts_gtts_generate.ipynb` processes the generated cricket commentary text and automatically converts it into spoken audio files. It uses the lightweight and efficient Google Text-to-Speech (gTTS) library to synthesize human-like speech, producing .mp3 audio clips ready to be merged with highlight videos.
+The Python script `tts gtts generate.ipynb` processes the generated cricket commentary text and automatically converts it into spoken audio files. It uses the lightweight and efficient Google Text-to-Speech (gTTS) library to synthesize human-like speech, producing .mp3 audio clips ready to be merged with highlight videos.
 
 #### Approach
 
